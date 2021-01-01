@@ -28,8 +28,6 @@ import Chart from "../components/Chart/Chart";
 
 import { calculateProjectStat } from "../utils/helpers";
 
-import "./Project.css";
-
 const osName = platform();
 
 type ProjectProps = {} & ProjectType & RouterProps;
