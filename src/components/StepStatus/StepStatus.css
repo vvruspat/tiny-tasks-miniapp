@@ -1,0 +1,22 @@
+.statusButton {
+  width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  border: 0 none;
+  outline: 0;
+  opacity: 0.8;
+  cursor: pointer;
+  margin-right: 8px;
+}
+
+.waiting {
+  background-color: var(--dynamic_red);
+}
+
+.in_progress {
+  background-color: var(--dynamic_orange);
+}
+
+.done {
+  background-color: var(--dynamic_green);
+}
