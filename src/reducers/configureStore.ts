@@ -1,7 +1,7 @@
 import { applyMiddleware, createStore } from "redux";
 import thunkMiddleware from "redux-thunk";
 import { ProjectType } from "../types/project";
-import { projectsInitialState } from './ProjectsReducer';
+import { projectsInitialState } from "./ProjectsReducer";
 import rootReducer from "./rootReducer";
 
 export type StateType = {

@@ -10,7 +10,6 @@ import {
   Button,
   SimpleCell,
 } from "@vkontakte/vkui";
-import Panel from "@vkontakte/vkui/dist/components/Panel/Panel";
 import PanelHeader from "@vkontakte/vkui/dist/components/PanelHeader/PanelHeader";
 import PanelHeaderButton from "@vkontakte/vkui/dist/components/PanelHeaderButton/PanelHeaderButton";
 import Icon28ChevronBack from "@vkontakte/icons/dist/28/chevron_back";
@@ -20,8 +19,7 @@ import { RouterProps, StepType, UserType } from "../types";
 
 const osName = platform();
 
-type EditStepProps = {} & StepType &
-  RouterProps;
+type EditStepProps = {} & StepType & RouterProps;
 
 const EditStep: FC<EditStepProps> = (props) => {
   const onUserSelect = (user: UserType) => {
@@ -54,7 +52,7 @@ const EditStep: FC<EditStepProps> = (props) => {
   const [status, setStatus] = useState(props.status);
 
   return (
-	<>
+    <>
       <PanelHeader
         left={
           <PanelHeaderButton onClick={props.go.bind(this, "home")}>

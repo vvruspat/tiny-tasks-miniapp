@@ -434,7 +434,7 @@ export default function ProjectsReducer(
 ) {
   switch (action.type) {
     case EVENTS.GET_PROJECTS_SUCCESS: {
-      console.log('state', action.payload);
+      console.log("state", action.payload);
       state = action.payload as ProjectType[];
 
       return state;

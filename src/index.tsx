@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import configureStore from "./reducers/configureStore";
 import ReactDOM from "react-dom";
 import bridge from "@vkontakte/vk-bridge";
-import './constants/config';
+import "./constants/config";
 import App from "./App";
 
 // Init VK  Mini App

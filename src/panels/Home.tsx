@@ -6,13 +6,13 @@ import SimpleCell from "@vkontakte/vkui/dist/components/SimpleCell/SimpleCell";
 import Placeholder from "@vkontakte/vkui/dist/components/Placeholder/Placeholder";
 import Button from "@vkontakte/vkui/dist/components/Button/Button";
 import { plural } from "../utils/helpers";
-import Icon28AddOutline from '@vkontakte/icons/dist/28/add_outline';
+import Icon28AddOutline from "@vkontakte/icons/dist/28/add_outline";
 import Icon56DocumentOutline from "@vkontakte/icons/dist/56/document_outline";
 import { shallowEqual, useSelector } from "react-redux";
 import { ProjectType } from "../types/project";
 import { RouterProps } from "../types";
 import { StateType } from "../reducers/configureStore";
-import PanelHeaderButton from '@vkontakte/vkui/dist/components/PanelHeaderButton/PanelHeaderButton';
+import PanelHeaderButton from "@vkontakte/vkui/dist/components/PanelHeaderButton/PanelHeaderButton";
 
 type HomeProps = {} & RouterProps;
 
@@ -25,7 +25,11 @@ const Home: FC<HomeProps> = ({ go }) => {
   return (
     <>
       <PanelHeader
-        right={<PanelHeaderButton><Icon28AddOutline /></PanelHeaderButton>}
+        right={
+          <PanelHeaderButton>
+            <Icon28AddOutline />
+          </PanelHeaderButton>
+        }
       >
         Проекты
       </PanelHeader>

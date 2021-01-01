@@ -8,8 +8,7 @@ export function getURIParams(params: { [key: string]: string }) {
 }
 
 export function queryToObject(query: string) {
-  return query.split("&")
-  .reduce((prev, cur) => {
+  return query.split("&").reduce((prev, cur) => {
     const [key, value] = cur.split("=");
 
     return {

@@ -9,8 +9,8 @@ import Project from "./panels/Project";
 import EditStep from "./panels/EditStep";
 import { StepType, UserType } from "./types";
 import { ProjectType } from "./types/project";
-import { useDispatch } from 'react-redux';
-import { getProjects } from './actions/projectActions';
+import { useDispatch } from "react-redux";
+import { getProjects } from "./actions/projectActions";
 
 const App = () => {
   const [activePanel, setActivePanel] = useState("home");
@@ -24,7 +24,7 @@ const App = () => {
   useEffect(() => {
     async function fetchData() {
       const user = await bridge.send("VKWebAppGetUserInfo");
-	  
+
       setUser(user);
 
       dispatch(getProjects());
@@ -43,21 +43,19 @@ const App = () => {
 
   return (
     <View activePanel={activePanel} popout={popout}>
-		<Panel id="home"><Home go={go} setPopout={setPopout} /></Panel>
-		<Panel id="project">
-			<Project
-				go={go}
-				setPopout={setPopout}
-				{...(panelProps as ProjectType)}
-			/>
-		</Panel>
-		<Panel id="editStep">
-			<EditStep
-				go={go}
-				setPopout={setPopout}
-				{...(panelProps as StepType)}
-			/>
-		</Panel>
+      <Panel id="home">
+        <Home go={go} setPopout={setPopout} />
+      </Panel>
+      <Panel id="project">
+        <Project
+          go={go}
+          setPopout={setPopout}
+          {...(panelProps as ProjectType)}
+        />
+      </Panel>
+      <Panel id="editStep">
+        <EditStep go={go} setPopout={setPopout} {...(panelProps as StepType)} />
+      </Panel>
     </View>
   );
 };
