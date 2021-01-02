@@ -10,11 +10,10 @@ import EditStep from "./panels/EditStep";
 import { StepType, UserType } from "./types";
 import { ProjectType } from "./types/project";
 import { useDispatch } from "react-redux";
-import { getProjects } from "./actions/projectActions";
+import { getProjectsAction } from "./actions/projectActions";
 
 const App = () => {
   const [activePanel, setActivePanel] = useState("home");
-  const [fetchedUser, setUser] = useState<UserType>();
   const [popout, setPopout] = useState<React.ReactNode | null>(
     <ScreenSpinner />
   );
@@ -23,11 +22,7 @@ const App = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const user = await bridge.send("VKWebAppGetUserInfo");
-
-      setUser(user);
-
-      dispatch(getProjects());
+      dispatch(getProjectsAction());
       setPopout(null);
     }
     fetchData();

@@ -7,6 +7,7 @@ import {
   PanelHeaderContext,
   List,
   PanelHeaderContent,
+  PanelHeaderBack,
 } from "@vkontakte/vkui";
 import Task from "../components/Task/Task";
 import PanelHeader from "@vkontakte/vkui/dist/components/PanelHeader/PanelHeader";
@@ -18,6 +19,7 @@ import Button from "@vkontakte/vkui/dist/components/Button/Button";
 import { ProjectType } from "../types/project";
 import { RouterProps } from "../types";
 import useProjectBase from "../hooks/projectBase";
+
 import Icon56DocumentOutline from "@vkontakte/icons/dist/56/document_outline";
 import Icon28AddOutline from "@vkontakte/icons/dist/28/add_outline";
 import Icon28WriteOutline from "@vkontakte/icons/dist/28/write_outline";
@@ -34,15 +36,13 @@ type ProjectProps = {} & ProjectType & RouterProps;
 
 const Project: FC<ProjectProps> = (props) => {
   const [isContextOpened, setContextState] = useState(false);
-  const { renameProject, createTask, removeProject } = useProjectBase(props);
+  const { editProject, createTask, removeProject } = useProjectBase(props);
 
   return (
     <>
       <PanelHeader
         left={
-          <PanelHeaderButton onClick={props.go.bind(this, "home")}>
-            {osName === IOS ? <Icon28ChevronBack /> : <Icon24Back />}
-          </PanelHeaderButton>
+          <PanelHeaderBack onClick={props.go.bind(this, "home")} />
         }
         right={
           <PanelHeaderButton>
@@ -71,7 +71,7 @@ const Project: FC<ProjectProps> = (props) => {
         onClose={() => setContextState(!isContextOpened)}
       >
         <List>
-          <Cell before={<Icon28WriteOutline />} onClick={renameProject}>
+          <Cell before={<Icon28WriteOutline />} onClick={editProject}>
             Переименовать
           </Cell>
           <Cell before={<Icon28AddOutline />} onClick={createTask}>

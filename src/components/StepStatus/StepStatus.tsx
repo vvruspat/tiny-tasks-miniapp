@@ -1,9 +1,10 @@
-import React, { FC } from "react";
+import React, { createRef, FC, Ref, RefObject, useRef } from "react";
 import cn from "classnames";
 import ChangeStatusPopup from "../ChangeStatusPopup/ChangeStatusPopup";
 
 import "./StepStatus.css";
 import { RouterProps } from "../../types";
+import { Button } from '@vkontakte/vkui';
 
 type StepStatusType = {
   status: number;
@@ -34,6 +35,8 @@ const getClassByStatus = (status: EStepStatus) => {
 };
 
 const StepStatus: FC<StepStatusType> = (props) => {
+  const buttonRef = createRef<Element>();
+
   const showStatusMenu = (event: React.MouseEvent) => {
     event.stopPropagation();
 
@@ -42,12 +45,13 @@ const StepStatus: FC<StepStatusType> = (props) => {
         onClose={() => props.setPopout && props.setPopout(null)}
         go={props.go}
         setPopout={props.setPopout}
+        ref={buttonRef}
       />
     );
   };
 
   return (
-    <button
+    <Button
       className={cn("statusButton", getClassByStatus(props.status))}
       onClick={showStatusMenu}
     />

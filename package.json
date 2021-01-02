@@ -28,10 +28,11 @@
     "@types/node": "^14.14.10",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
-    "@vkontakte/icons": "^1.41.1",
+    "@vkontakte/icons": "^1.69.0",
     "@vkontakte/vk-bridge": "^2.3.0",
     "@vkontakte/vk-miniapps-deploy": "0.0.17",
-    "@vkontakte/vkui": "^3.12.6",
+    "@vkontakte/vkjs": "^0.20.0",
+    "@vkontakte/vkui": "^4.0.3",
     "babel-eslint": "^10.1.0",
     "chalk": "^2.4.2",
     "chart.js": "^2.9.3",
@@ -57,5 +58,13 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*": "prettier --write --ignore-unknown"
   }
 }

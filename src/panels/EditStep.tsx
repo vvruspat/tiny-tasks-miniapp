@@ -9,6 +9,9 @@ import {
   Select,
   Button,
   SimpleCell,
+  FormItem,
+  CustomSelectOption,
+  PanelHeaderBack,
 } from "@vkontakte/vkui";
 import PanelHeader from "@vkontakte/vkui/dist/components/PanelHeader/PanelHeader";
 import PanelHeaderButton from "@vkontakte/vkui/dist/components/PanelHeaderButton/PanelHeaderButton";
@@ -55,23 +58,21 @@ const EditStep: FC<EditStepProps> = (props) => {
     <>
       <PanelHeader
         left={
-          <PanelHeaderButton onClick={props.go.bind(this, "home")}>
-            {osName === IOS ? <Icon28ChevronBack /> : <Icon24Back />}
-          </PanelHeaderButton>
+          <PanelHeaderBack onClick={props.go.bind(this, "home")} />
         }
       >
         {props.name ? props.name : "Добавить шаг"}
       </PanelHeader>
 
       <FormLayout>
-        <Input
-          type="text"
-          top="Заголовок"
-          name="name"
-          value={name}
-          onChange={onNameChange}
-          status={name ? "valid" : "error"}
-        />
+        <FormItem top="Заголовок" status={name ? "valid" : "error"}>
+          <Input
+            type="text"
+            name="name"
+            value={name}
+            onChange={onNameChange}
+          />
+        </FormItem>
 
         <Group>
           <SimpleCell
@@ -83,14 +84,29 @@ const EditStep: FC<EditStepProps> = (props) => {
             Назначить исполнителя
           </SimpleCell>
         </Group>
+        <FormItem top="Статус" status={name ? "valid" : "error"}>
 
-        <Select top="Статус" onChange={onStatusChange} value={props.status}>
-          <option value="0">Ожидает</option>
-          <option value="1">В работе</option>
-          <option value="2">Готово</option>
-        </Select>
+        <Select onChange={onStatusChange} value={props.status}
+          placeholder="Не выбран" 
+          options={[{
+            label: "Ожидает",
+            value: "0",
+          },
+          {
+            label: "В работе",
+            value: "1",
+          },
+          {
+            label: "Готово",
+            value: "2",
+          }]}
+          renderOption={({ option, ...restProps }) => (
+            <CustomSelectOption {...restProps} />
+          )}
+        ></Select>
+        </FormItem>
 
-        <Button size="xl">{props.name ? "Сохранить" : "Добавить"}</Button>
+        <Button size="l">{props.name ? "Сохранить" : "Добавить"}</Button>
       </FormLayout>
     </>
   );
