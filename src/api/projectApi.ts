@@ -1,4 +1,5 @@
 import { ProjectType } from "../types/project";
+import { getURIParams } from '../utils/helpers';
 import { server, requestHeaders } from "./settings";
 
 export const getProjectList = () =>
@@ -23,6 +24,7 @@ export const createProject = (params: ProjectType) =>
   fetch(`${server}/api/project/`, {
     headers: requestHeaders,
     method: "post",
+    body: JSON.stringify(params),
   });
 
 export const updateProject = (params: ProjectType) =>

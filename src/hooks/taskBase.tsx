@@ -1,22 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import Alert from '@vkontakte/vkui/dist/components/Alert/Alert';
 import { removeProjectAction } from '../actions/projectActions';
-import { RouterProps } from '../types';
+import { RouterProps, StepType, TaskType } from '../types';
 import { ProjectType } from "../types/project";
 
-const useProjectBase = (props: RouterProps | ProjectType & RouterProps) => {
+export const useProjectBase = (props: RouterProps | ProjectType & RouterProps) => {
   const dispatch = useDispatch();
 
-  const createProject = () => {
-    const newProject: ProjectType = {
-      name: 'Новый проект',
-      tasks: [],
-    };
-
-    props.setModal({id: 'editProject', props: newProject});
-  };
-
+  const createProject = () => {};
   const editProject = () => {};
   const removeProject = () => {
     const { _id, setPopout } = props as ProjectType & RouterProps;
@@ -52,4 +44,30 @@ const useProjectBase = (props: RouterProps | ProjectType & RouterProps) => {
   };
 };
 
-export default useProjectBase;
+export const useTaskBase = (props: RouterProps, task?: TaskType) => {
+  const dispatch = useDispatch();
+
+  const createTask = () => {};
+  const editTask = () => {};
+  const removeTask = () => {};
+
+  return {
+    createTask,
+    editTask,
+    removeTask,
+  };
+};
+
+export const useStepBase = (props: RouterProps, step?: StepType) => {
+  const dispatch = useDispatch();
+
+  const createStep = () => {};
+  const editStep = () => {};
+  const removeStep = () => {};
+
+  return {
+    createStep,
+    editStep,
+    removeStep,
+  };
+};

@@ -1,9 +1,9 @@
 import { ChartData } from "../types";
 import { ProjectType } from "../types/project";
 
-export function getURIParams(params: { [key: string]: string }) {
+export function getURIParams(params: { [key: string]: string | undefined }) {
   return Object.keys(params).reduce((prev, cur) => {
-    return prev + (prev ? "&" : "") + `${cur}=${params[cur]}`;
+    return params[cur] ? (prev + (prev ? "&" : "") + `${cur}=${params[cur]}`) : prev;
   }, "");
 }
 

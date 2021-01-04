@@ -15,7 +15,7 @@ export enum EVENTS {
   CREATE_PROJECT_SUCCESS = "create/project/success",
   CREATE_PROJECT_FAILED = "create/project/failed",
 
-  UPDATE_PROJECTS_FETCH = "update/project/fetch",
-  UPDATE_PROJECTS_SUCCESS = "update/project/success",
-  UPDATE_PROJECTS_FAILED = "update/project/failed",
+  UPDATE_PROJECT_FETCH = "update/project/fetch",
+  UPDATE_PROJECT_SUCCESS = "update/project/success",
+  UPDATE_PROJECT_FAILED = "update/project/failed",
 }

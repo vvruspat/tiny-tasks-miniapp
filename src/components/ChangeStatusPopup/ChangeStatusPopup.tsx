@@ -14,6 +14,7 @@ const ChangeStatusPopup: React.FC<ChangeStatusPopupProps> = ({
   onClose,
   go,
   setPopout,
+  setModal,
 }) => {
   return (ref?.current &&
     <ActionSheet 
@@ -23,19 +24,19 @@ const ChangeStatusPopup: React.FC<ChangeStatusPopupProps> = ({
     >
       <ActionSheetItem
         autoclose
-        before={<StepStatus status={0} go={go} setPopout={setPopout} />}
+        before={<StepStatus status={0} go={go} setPopout={setPopout} setModal={setModal} />}
       >
         Ожидает
       </ActionSheetItem>
       <ActionSheetItem
         autoclose
-        before={<StepStatus status={1} go={go} setPopout={setPopout} />}
+        before={<StepStatus status={1} go={go} setPopout={setPopout} setModal={setModal} />}
       >
         В процессе
       </ActionSheetItem>
       <ActionSheetItem
         autoclose
-        before={<StepStatus status={2} go={go} setPopout={setPopout} />}
+        before={<StepStatus status={2} go={go} setPopout={setPopout} setModal={setModal} />}
       >
         Готово
       </ActionSheetItem>

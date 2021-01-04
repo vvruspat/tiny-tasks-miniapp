@@ -45,6 +45,7 @@ const StepStatus: FC<StepStatusType> = (props) => {
         onClose={() => props.setPopout && props.setPopout(null)}
         go={props.go}
         setPopout={props.setPopout}
+        setModal={props.setModal}
         ref={buttonRef}
       />
     );

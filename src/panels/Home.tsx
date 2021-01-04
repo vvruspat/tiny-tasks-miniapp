@@ -1,44 +1,48 @@
 import React, { FC, useEffect } from "react";
-import PanelHeader from "@vkontakte/vkui/dist/components/PanelHeader/PanelHeader";
-import List from "@vkontakte/vkui/dist/components/List/List";
-import Group from "@vkontakte/vkui/dist/components/Group/Group";
-import SimpleCell from "@vkontakte/vkui/dist/components/SimpleCell/SimpleCell";
-import Placeholder from "@vkontakte/vkui/dist/components/Placeholder/Placeholder";
-import Button from "@vkontakte/vkui/dist/components/Button/Button";
-import { plural } from "../utils/helpers";
-import Icon28AddOutline from "@vkontakte/icons/dist/28/add_outline";
-import Icon56DocumentOutline from "@vkontakte/icons/dist/56/document_outline";
 import { shallowEqual, useSelector } from "react-redux";
+import PanelHeaderButton from "@vkontakte/vkui/dist/components/PanelHeaderButton/PanelHeaderButton";
+import PanelHeader from "@vkontakte/vkui/dist/components/PanelHeader/PanelHeader";
+import Placeholder from "@vkontakte/vkui/dist/components/Placeholder/Placeholder";
+import SimpleCell from "@vkontakte/vkui/dist/components/SimpleCell/SimpleCell";
+import Button from "@vkontakte/vkui/dist/components/Button/Button";
+import Group from "@vkontakte/vkui/dist/components/Group/Group";
+import List from "@vkontakte/vkui/dist/components/List/List";
+import { plural } from "../utils/helpers";
+import { StateType } from "../redux/configureStore";
 import { ProjectType } from "../types/project";
 import { RouterProps } from "../types";
-import { StateType } from "../reducers/configureStore";
-import PanelHeaderButton from "@vkontakte/vkui/dist/components/PanelHeaderButton/PanelHeaderButton";
+
+import Icon56DocumentOutline from "@vkontakte/icons/dist/56/document_outline";
+import Icon28AddOutline from "@vkontakte/icons/dist/28/add_outline";
+import useProjectBase from '../hooks/projectBase';
 
 type HomeProps = {} & RouterProps;
 
-const Home: FC<HomeProps> = ({ go }) => {
+const Home: FC<HomeProps> = (props) => {
+  const { go } = props;
   const projects = useSelector(
-    (state: StateType) => state.projects,
+    (state: StateType) => state.projects.projects,
     shallowEqual
   );
+
+  const {
+    createProject
+  } = useProjectBase(props);
 
   return (
     <>
       <PanelHeader
-        right={
-          <PanelHeaderButton>
-            <Icon28AddOutline />
-          </PanelHeaderButton>
-        }
+        left={<PanelHeaderButton onClick={() => {createProject()}}><Icon28AddOutline /></PanelHeaderButton>}
+        fixed={false}
       >
         Проекты
       </PanelHeader>
 
       <Group title="Проекты">
-        {!projects || projects.length === 0 ? (
+        {!projects || projects?.length === 0 ? (
           <Placeholder
             icon={<Icon56DocumentOutline />}
-            action={<Button size="l">Создать</Button>}
+            action={<Button size="l" onClick={() => {createProject()}}>Создать</Button>}
           >
             Сейчас, у вас нет активных проектов, но вы можете создать проект
             прямо сейчас
