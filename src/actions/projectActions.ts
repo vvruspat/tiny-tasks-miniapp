@@ -1,7 +1,7 @@
 import { Dispatch } from "react";
 import { createProject, deleteProject, getProjectList } from "../api";
 import { EVENTS } from "../constants/events";
-import { ProjectType } from '../types/project';
+import { ProjectType } from "../types/project";
 
 // TODO: Fix any
 export const getProjectsAction = () => async (

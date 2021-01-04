@@ -1,6 +1,6 @@
 import { ProjectType } from "../../types/project";
 import { EVENTS } from "../../constants/events";
-import { ProjectReducerActions, ProjectsReducerState } from './types';
+import { ProjectReducerActions, ProjectsReducerState } from "./types";
 
 export const projectsInitialState: ProjectsReducerState = {
   projects: [],
@@ -11,7 +11,7 @@ export const projectsInitialState: ProjectsReducerState = {
 // TODO: fix any
 export default function ProjectsReducer(
   state: ProjectsReducerState = projectsInitialState,
-  action: ProjectReducerActions,
+  action: ProjectReducerActions
 ) {
   switch (action.type) {
     case EVENTS.GET_PROJECTS_SUCCESS: {
@@ -19,7 +19,7 @@ export default function ProjectsReducer(
       state = {
         error: null,
         isFetching: false,
-        projects: action.payload as ProjectType[]
+        projects: action.payload as ProjectType[],
       };
 
       return state;
@@ -34,7 +34,10 @@ export default function ProjectsReducer(
     case EVENTS.DELETE_PROJECT_SUCCESS: {
       const project = action.payload;
 
-      state.projects = state?.projects?.filter((_project) => !(project._id === _project._id)) ?? [];
+      state.projects =
+        state?.projects?.filter(
+          (_project) => !(project._id === _project._id)
+        ) ?? [];
 
       return state;
     }

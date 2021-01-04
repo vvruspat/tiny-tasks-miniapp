@@ -57,21 +57,14 @@ const EditStep: FC<EditStepProps> = (props) => {
   return (
     <>
       <PanelHeader
-        left={
-          <PanelHeaderBack onClick={props.go.bind(this, "home")} />
-        }
+        left={<PanelHeaderBack onClick={props.go.bind(this, "home")} />}
       >
         {props.name ? props.name : "Добавить шаг"}
       </PanelHeader>
 
       <FormLayout>
         <FormItem top="Заголовок" status={name ? "valid" : "error"}>
-          <Input
-            type="text"
-            name="name"
-            value={name}
-            onChange={onNameChange}
-          />
+          <Input type="text" name="name" value={name} onChange={onNameChange} />
         </FormItem>
 
         <Group>
@@ -85,25 +78,28 @@ const EditStep: FC<EditStepProps> = (props) => {
           </SimpleCell>
         </Group>
         <FormItem top="Статус" status={name ? "valid" : "error"}>
-
-        <Select onChange={onStatusChange} value={props.status}
-          placeholder="Не выбран" 
-          options={[{
-            label: "Ожидает",
-            value: "0",
-          },
-          {
-            label: "В работе",
-            value: "1",
-          },
-          {
-            label: "Готово",
-            value: "2",
-          }]}
-          renderOption={({ option, ...restProps }) => (
-            <CustomSelectOption {...restProps} />
-          )}
-        ></Select>
+          <Select
+            onChange={onStatusChange}
+            value={props.status}
+            placeholder="Не выбран"
+            options={[
+              {
+                label: "Ожидает",
+                value: "0",
+              },
+              {
+                label: "В работе",
+                value: "1",
+              },
+              {
+                label: "Готово",
+                value: "2",
+              },
+            ]}
+            renderOption={({ option, ...restProps }) => (
+              <CustomSelectOption {...restProps} />
+            )}
+          ></Select>
         </FormItem>
 
         <Button size="l">{props.name ? "Сохранить" : "Добавить"}</Button>

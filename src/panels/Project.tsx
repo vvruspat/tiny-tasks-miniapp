@@ -29,7 +29,7 @@ import Icon16Dropdown from "@vkontakte/icons/dist/16/dropdown";
 import Chart from "../components/Chart/Chart";
 
 import { calculateProjectStat } from "../utils/helpers";
-import { useTaskBase } from '../hooks/stepBase';
+import { useTaskBase } from "../hooks/stepBase";
 
 type ProjectProps = {} & ProjectType & RouterProps;
 
@@ -42,9 +42,7 @@ const Project: FC<ProjectProps> = (props) => {
     <>
       <PanelHeader
         fixed={false}
-        left={
-          <PanelHeaderBack onClick={props.go.bind(this, "home")} />
-        }
+        left={<PanelHeaderBack onClick={props.go.bind(this, "home")} />}
         // right={
         //   <PanelHeaderButton>
         //     <Icon28AddOutline />

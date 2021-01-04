@@ -1,5 +1,5 @@
 import { ProjectType } from "../types/project";
-import { getURIParams } from '../utils/helpers';
+import { getURIParams } from "../utils/helpers";
 import { server, requestHeaders } from "./settings";
 
 export const getProjectList = () =>

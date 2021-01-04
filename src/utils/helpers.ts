@@ -3,7 +3,9 @@ import { ProjectType } from "../types/project";
 
 export function getURIParams(params: { [key: string]: string | undefined }) {
   return Object.keys(params).reduce((prev, cur) => {
-    return params[cur] ? (prev + (prev ? "&" : "") + `${cur}=${params[cur]}`) : prev;
+    return params[cur]
+      ? prev + (prev ? "&" : "") + `${cur}=${params[cur]}`
+      : prev;
   }, "");
 }
 

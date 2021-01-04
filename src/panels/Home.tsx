@@ -14,7 +14,7 @@ import { RouterProps } from "../types";
 
 import Icon56DocumentOutline from "@vkontakte/icons/dist/56/document_outline";
 import Icon28AddOutline from "@vkontakte/icons/dist/28/add_outline";
-import useProjectBase from '../hooks/projectBase';
+import useProjectBase from "../hooks/projectBase";
 
 type HomeProps = {} & RouterProps;
 
@@ -25,14 +25,20 @@ const Home: FC<HomeProps> = (props) => {
     shallowEqual
   );
 
-  const {
-    createProject
-  } = useProjectBase(props);
+  const { createProject } = useProjectBase(props);
 
   return (
     <>
       <PanelHeader
-        left={<PanelHeaderButton onClick={() => {createProject()}}><Icon28AddOutline /></PanelHeaderButton>}
+        left={
+          <PanelHeaderButton
+            onClick={() => {
+              createProject();
+            }}
+          >
+            <Icon28AddOutline />
+          </PanelHeaderButton>
+        }
         fixed={false}
       >
         Проекты
@@ -42,7 +48,16 @@ const Home: FC<HomeProps> = (props) => {
         {!projects || projects?.length === 0 ? (
           <Placeholder
             icon={<Icon56DocumentOutline />}
-            action={<Button size="l" onClick={() => {createProject()}}>Создать</Button>}
+            action={
+              <Button
+                size="l"
+                onClick={() => {
+                  createProject();
+                }}
+              >
+                Создать
+              </Button>
+            }
           >
             Сейчас, у вас нет активных проектов, но вы можете создать проект
             прямо сейчас

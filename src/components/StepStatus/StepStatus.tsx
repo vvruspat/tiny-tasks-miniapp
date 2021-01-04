@@ -4,7 +4,7 @@ import ChangeStatusPopup from "../ChangeStatusPopup/ChangeStatusPopup";
 
 import "./StepStatus.css";
 import { RouterProps } from "../../types";
-import { Button } from '@vkontakte/vkui';
+import { Button } from "@vkontakte/vkui";
 
 type StepStatusType = {
   status: number;

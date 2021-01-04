@@ -1,5 +1,5 @@
-import { ModalPage } from '@vkontakte/vkui';
-import { ModalParamsType } from './modal';
+import { ModalPage } from "@vkontakte/vkui";
+import { ModalParamsType } from "./modal";
 
 export type RouterProps = {
   go: (name: string, props: any) => void;
