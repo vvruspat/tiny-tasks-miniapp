@@ -21,8 +21,7 @@ const routes = [
         name: "project/task/step",
         children: [
           // Modals
-          { name: "project/task/step/edit", 
-          modal: true },
+          { name: "project/task/step/edit", modal: true },
           { name: "project/task/step/delete", modal: true, updateUrl: false },
         ],
       },
