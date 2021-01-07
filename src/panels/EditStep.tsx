@@ -19,8 +19,8 @@ import Icon28ChevronBack from "@vkontakte/icons/dist/28/chevron_back";
 import Icon24Back from "@vkontakte/icons/dist/24/back";
 import UserSelector from "../components/UserSelectorModal/UserSelectorModal";
 import { StepType, UserType } from "../types";
-import router from '../router';
-import { PopoutManageConext } from '../context/PopoutManage';
+import router from "../router";
+import { PopoutManageConext } from "../context/PopoutManage";
 
 type EditStepProps = {} & StepType;
 
@@ -34,10 +34,7 @@ const EditStep: FC<EditStepProps> = (props) => {
 
   const showUserSelect = () => {
     setPopout(
-      <UserSelector
-        onSelect={onUserSelect}
-        onClose={() => setPopout(null)}
-      />
+      <UserSelector onSelect={onUserSelect} onClose={() => setPopout(null)} />
     );
   };
 

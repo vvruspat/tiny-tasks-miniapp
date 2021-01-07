@@ -1,10 +1,17 @@
-import React, { createRef, FC, Ref, RefObject, useContext, useRef } from "react";
+import React, {
+  createRef,
+  FC,
+  Ref,
+  RefObject,
+  useContext,
+  useRef,
+} from "react";
 import cn from "classnames";
 import ChangeStatusPopup from "../ChangeStatusPopup/ChangeStatusPopup";
 
 import "./StepStatus.css";
 import { Button } from "@vkontakte/vkui";
-import { PopoutManageConext } from '../../context/PopoutManage';
+import { PopoutManageConext } from "../../context/PopoutManage";
 
 type StepStatusType = {
   status: number;
@@ -42,10 +49,7 @@ const StepStatus: FC<StepStatusType> = (props) => {
     event.stopPropagation();
 
     setPopout(
-      <ChangeStatusPopup
-        onClose={() => setPopout(null)}
-        ref={buttonRef}
-      />
+      <ChangeStatusPopup onClose={() => setPopout(null)} ref={buttonRef} />
     );
   };
 

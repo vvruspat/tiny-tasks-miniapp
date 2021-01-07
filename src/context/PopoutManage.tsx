@@ -1,4 +1,10 @@
-import React, { FC, createContext, useState, ReactNode, useEffect } from "react";
+import React, {
+  FC,
+  createContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
 
 type PopoutManageContextProps = {
   popout: ReactNode | null;
@@ -14,7 +20,7 @@ const PopoutManage: FC = ({ children }) => {
   const [popout, setPopout] = useState<ReactNode | null>(null);
 
   return (
-    <PopoutManageConext.Provider value={{popout, setPopout}}>
+    <PopoutManageConext.Provider value={{ popout, setPopout }}>
       {children}
     </PopoutManageConext.Provider>
   );

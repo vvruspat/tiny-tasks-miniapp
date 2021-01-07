@@ -19,12 +19,7 @@ const Task: FC<TaskProps> = (props) => {
       </Header>
       <List>
         {props.steps &&
-          props.steps.map((step, index) => (
-            <Step
-              {...step}
-              key={index}
-            />
-          ))}
+          props.steps.map((step, index) => <Step {...step} key={index} />)}
         <SimpleCell>
           <Button mode="secondary" onClick={() => createStep()}>
             Добавить шаг

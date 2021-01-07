@@ -23,34 +23,13 @@ const ChangeStatusPopup: React.FC<ChangeStatusPopupProps> = ({
         }
         toggleRef={ref.current}
       >
-        <ActionSheetItem
-          autoclose
-          before={
-            <StepStatus
-              status={0}
-            />
-          }
-        >
+        <ActionSheetItem autoclose before={<StepStatus status={0} />}>
           Ожидает
         </ActionSheetItem>
-        <ActionSheetItem
-          autoclose
-          before={
-            <StepStatus
-              status={1}
-            />
-          }
-        >
+        <ActionSheetItem autoclose before={<StepStatus status={1} />}>
           В процессе
         </ActionSheetItem>
-        <ActionSheetItem
-          autoclose
-          before={
-            <StepStatus
-              status={2}
-            />
-          }
-        >
+        <ActionSheetItem autoclose before={<StepStatus status={2} />}>
           Готово
         </ActionSheetItem>
         <ActionSheetItem autoclose mode="cancel">

@@ -4,11 +4,9 @@ import Alert from "@vkontakte/vkui/dist/components/Alert/Alert";
 import { removeProjectAction } from "../redux/projects/actions";
 import { StepType, TaskType } from "../types";
 import { ProjectType } from "../types/project";
-import { PopoutManageConext } from '../context/PopoutManage';
+import { PopoutManageConext } from "../context/PopoutManage";
 
-export const useProjectBase = (
-  props: ProjectType
-) => {
+export const useProjectBase = (props: ProjectType) => {
   const dispatch = useDispatch();
   const { setPopout } = useContext(PopoutManageConext);
 

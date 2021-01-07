@@ -5,7 +5,7 @@ import StepStatus from "../StepStatus/StepStatus";
 import { StepType } from "../../types";
 
 import "./Step.css";
-import router from '../../router';
+import router from "../../router";
 
 type StepProp = {} & StepType;
 

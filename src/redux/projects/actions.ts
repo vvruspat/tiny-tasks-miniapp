@@ -1,5 +1,10 @@
 import { Dispatch } from "react";
-import { createProject, deleteProject, getProjectList, updateProject } from "../../api";
+import {
+  createProject,
+  deleteProject,
+  getProjectList,
+  updateProject,
+} from "../../api";
 import { EVENTS } from "../../constants/events";
 import { ProjectType } from "../../types/project";
 
@@ -76,7 +81,6 @@ export const createProjectAction = (params: ProjectType) => async (
       });
     });
 };
-
 
 export const updateProjectAction = (params: ProjectType) => async (
   dispatch: Dispatch<{ type: EVENTS; payload?: any }>

@@ -14,7 +14,7 @@ import { ProjectType } from "../types/project";
 import Icon56DocumentOutline from "@vkontakte/icons/dist/56/document_outline";
 import Icon28AddOutline from "@vkontakte/icons/dist/28/add_outline";
 import useProjectBase from "../hooks/projectBase";
-import router from '../router';
+import router from "../router";
 
 type HomeProps = {};
 

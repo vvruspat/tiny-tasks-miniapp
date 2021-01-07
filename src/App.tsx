@@ -23,8 +23,8 @@ import EditStepComponent from "./components/EditStep/EditStep";
 import { ModalParamsType } from "./types/modal";
 import Icon28CancelOutline from "@vkontakte/icons/dist/28/cancel_outline";
 import { BridgeConfigConext } from "./context/BridgeConfig";
-import router from './router';
-import { PopoutManageConext } from './context/PopoutManage';
+import router from "./router";
+import { PopoutManageConext } from "./context/PopoutManage";
 
 const WINDOW_WITH_MODAL_HEIGHT = 600;
 
@@ -41,12 +41,12 @@ const App = () => {
 
   const routerListener = ({ toState }: { toState: any }) => {
     setRouterState(toState);
-    console.log('toState', toState);
-  }
+    console.log("toState", toState);
+  };
 
   useEffect(() => {
     const unsubscribe = router.subscribe(routerListener);
- 
+
     return unsubscribe;
   }, []);
 
@@ -69,15 +69,15 @@ const App = () => {
     } else {
       changeHeightForModal(true);
     }
-}, [routerState.modal]);
+  }, [routerState.modal]);
 
-useEffect(() => {
-  if (popout) {
-    changeHeightForModal();
-  } else {
-    changeHeightForModal(true);
-  }
-}, [popout]);
+  useEffect(() => {
+    if (popout) {
+      changeHeightForModal();
+    } else {
+      changeHeightForModal(true);
+    }
+  }, [popout]);
 
   async function changeHeightForModal(isHide = false) {
     if (bridge.supports("VKWebAppResizeWindow")) {
@@ -122,7 +122,7 @@ useEffect(() => {
         dynamicContentHeight={true}
       >
         <EditProjectComponent
-          onClose={() => router.back() }
+          onClose={() => router.back()}
           _id={routerState.params._id}
         />
       </ModalPage>
@@ -153,9 +153,7 @@ useEffect(() => {
         <Home />
       </Panel>
       <Panel id="project">
-        <Project
-          {...(routerState.params as ProjectType)}
-        />
+        <Project {...(routerState.params as ProjectType)} />
       </Panel>
       {/* <Panel id="editStep">
         <EditStep

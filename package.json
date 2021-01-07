@@ -9,7 +9,7 @@
     "predeploy": "npm run build",
     "deploy": "vk-miniapps-deploy",
     "postinstall": "husky install",
-    "test": "prettier --write --ignore-unknown"
+    "test": "prettier --write --ignore-unknown ."
   },
   "keywords": [],
   "author": "",
@@ -66,6 +66,6 @@
     }
   },
   "lint-staged": {
-    "src/**/*": "prettier --write --ignore-unknown"
+    "src/**/*": "prettier --write --ignore-unknown ."
   }
 }

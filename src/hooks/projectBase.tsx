@@ -3,8 +3,8 @@ import { useDispatch } from "react-redux";
 import Alert from "@vkontakte/vkui/dist/components/Alert/Alert";
 import { removeProjectAction } from "../redux/projects/actions";
 import { ProjectType } from "../types/project";
-import router from '../router';
-import { PopoutManageConext } from '../context/PopoutManage';
+import router from "../router";
+import { PopoutManageConext } from "../context/PopoutManage";
 
 const useProjectBase = (props?: ProjectType) => {
   const dispatch = useDispatch();
@@ -40,7 +40,7 @@ const useProjectBase = (props?: ProjectType) => {
               mode: "destructive",
               action: () => {
                 dispatch(removeProjectAction(_id));
-                router.go('projects', {});
+                router.go("projects", {});
               },
             },
           ]}

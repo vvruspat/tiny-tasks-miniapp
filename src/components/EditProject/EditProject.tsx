@@ -8,12 +8,15 @@ import {
 } from "@vkontakte/vkui";
 import React, { FC, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createProjectAction, updateProjectAction } from "../../redux/projects/actions";
+import {
+  createProjectAction,
+  updateProjectAction,
+} from "../../redux/projects/actions";
 import { StateType } from "../../redux/configureStore";
 import { ProjectType } from "../../types/project";
 
-type EditProjectProps = { 
-  onClose: () => void; 
+type EditProjectProps = {
+  onClose: () => void;
   _id: string | null;
 };
 
@@ -23,7 +26,9 @@ const EditProjectComponent: FC<EditProjectProps> = (
   const [isLoading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
-  const project = useSelector((state: StateType) => state.projects.projects.find(proj => proj._id === props._id));
+  const project = useSelector((state: StateType) =>
+    state.projects.projects.find((proj) => proj._id === props._id)
+  );
   const [name, setName] = useState(project?.name ?? "Новый проект");
   const error = useSelector((state: StateType) => state.projects.error);
   const isFetching = useSelector(

@@ -24,27 +24,27 @@ import Chart from "../components/Chart/Chart";
 
 import { calculateProjectStat } from "../utils/helpers";
 import { useTaskBase } from "../hooks/stepBase";
-import router from '../router';
+import router from "../router";
 
 type ProjectProps = ProjectType;
 
-const Project: FC<ProjectProps> = (props) => { 
+const Project: FC<ProjectProps> = (props) => {
   const [isContextOpened, setContextState] = useState(false);
   const { editProject, removeProject } = useProjectBase(props);
   const { createTask } = useTaskBase();
 
   const onEditProjectClick = () => {
-    setContextState(false); 
+    setContextState(false);
     editProject();
   };
 
   const onCreateTaskClick = () => {
-    setContextState(false); 
+    setContextState(false);
     createTask();
   };
 
   const onRemoveProjectClick = () => {
-    setContextState(false); 
+    setContextState(false);
     removeProject();
   };
 
@@ -75,7 +75,7 @@ const Project: FC<ProjectProps> = (props) => {
         onClose={() => setContextState(!isContextOpened)}
       >
         <List>
-          <Cell before={<Icon28WriteOutline />} onClick={onEditProjectClick} >
+          <Cell before={<Icon28WriteOutline />} onClick={onEditProjectClick}>
             Переименовать
           </Cell>
           <Cell before={<Icon28AddOutline />} onClick={onCreateTaskClick}>
@@ -102,12 +102,7 @@ const Project: FC<ProjectProps> = (props) => {
 
           <CardScroll>
             {props.tasks &&
-              props.tasks.map((task, index) => (
-                <Task
-                  {...task}
-                  key={index}
-                />
-              ))}
+              props.tasks.map((task, index) => <Task {...task} key={index} />)}
           </CardScroll>
         </>
       )}

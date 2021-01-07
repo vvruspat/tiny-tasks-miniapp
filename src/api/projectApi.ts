@@ -1,7 +1,10 @@
 import { ProjectType } from "../types/project";
 import { server, requestHeaders } from "./settings";
 
-async function _fetch<T>(url: string, options: RequestInit): Promise<T | Error> {
+async function _fetch<T>(
+  url: string,
+  options: RequestInit
+): Promise<T | Error> {
   const result = await fetch(url, options);
   const resultData = await result.json();
 
@@ -14,7 +17,7 @@ async function _fetch<T>(url: string, options: RequestInit): Promise<T | Error> 
   error.name = result.statusText;
   error.message = resultData.msg;
 
-  throw(error);
+  throw error;
 }
 
 export const getProjectList = () =>
