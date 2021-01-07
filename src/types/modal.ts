@@ -5,7 +5,7 @@ import { TaskType } from "./task";
 export type ModalParamsType =
   | {
       id: "editProject";
-      props: ProjectType;
+      projectId?: string;
     }
   | {
       id: "editTask";

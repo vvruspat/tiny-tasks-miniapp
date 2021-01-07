@@ -1,20 +1,16 @@
 import React, { Ref, RefObject } from "react";
 import { ActionSheet, ActionSheetItem } from "@vkontakte/vkui";
 import StepStatus from "../StepStatus/StepStatus";
-import { RouterProps } from "../../types";
 
 type ChangeStatusPopupProps = {
   ref: RefObject<Element>;
   onClose: () => void;
   status?: boolean;
-} & RouterProps;
+};
 
 const ChangeStatusPopup: React.FC<ChangeStatusPopupProps> = ({
   ref,
   onClose,
-  go,
-  setPopout,
-  setModal,
 }) => {
   return (
     ref?.current && (
@@ -32,9 +28,6 @@ const ChangeStatusPopup: React.FC<ChangeStatusPopupProps> = ({
           before={
             <StepStatus
               status={0}
-              go={go}
-              setPopout={setPopout}
-              setModal={setModal}
             />
           }
         >
@@ -45,9 +38,6 @@ const ChangeStatusPopup: React.FC<ChangeStatusPopupProps> = ({
           before={
             <StepStatus
               status={1}
-              go={go}
-              setPopout={setPopout}
-              setModal={setModal}
             />
           }
         >
@@ -58,9 +48,6 @@ const ChangeStatusPopup: React.FC<ChangeStatusPopupProps> = ({
           before={
             <StepStatus
               status={2}
-              go={go}
-              setPopout={setPopout}
-              setModal={setModal}
             />
           }
         >

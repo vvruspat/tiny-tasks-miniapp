@@ -10,22 +10,20 @@ import List from "@vkontakte/vkui/dist/components/List/List";
 import { plural } from "../utils/helpers";
 import { StateType } from "../redux/configureStore";
 import { ProjectType } from "../types/project";
-import { RouterProps } from "../types";
 
 import Icon56DocumentOutline from "@vkontakte/icons/dist/56/document_outline";
 import Icon28AddOutline from "@vkontakte/icons/dist/28/add_outline";
 import useProjectBase from "../hooks/projectBase";
+import router from '../router';
 
-type HomeProps = {} & RouterProps;
+type HomeProps = {};
 
 const Home: FC<HomeProps> = (props) => {
-  const { go } = props;
   const projects = useSelector(
-    (state: StateType) => state.projects.projects,
+    (state: StateType) => state.projects,
     shallowEqual
   );
-
-  const { createProject } = useProjectBase(props);
+  const { createProject } = useProjectBase();
 
   return (
     <>
@@ -45,7 +43,7 @@ const Home: FC<HomeProps> = (props) => {
       </PanelHeader>
 
       <Group title="Проекты">
-        {!projects || projects?.length === 0 ? (
+        {!projects?.projects || projects?.projects?.length === 0 ? (
           <Placeholder
             icon={<Icon56DocumentOutline />}
             action={
@@ -64,10 +62,10 @@ const Home: FC<HomeProps> = (props) => {
           </Placeholder>
         ) : (
           <List>
-            {projects.map((project: ProjectType, index: number) => {
+            {projects?.projects.map((project: ProjectType, index: number) => {
               return (
                 <SimpleCell
-                  onClick={go.bind(this, "project", project)}
+                  onClick={() => router.go("project", project)}
                   key={index}
                   expandable
                   description={`${project.tasks?.length ?? 0} ${plural(

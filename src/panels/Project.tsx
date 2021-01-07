@@ -1,7 +1,5 @@
 import React, { FC, useState } from "react";
 import {
-  platform,
-  IOS,
   CardScroll,
   Cell,
   PanelHeaderContext,
@@ -11,13 +9,9 @@ import {
 } from "@vkontakte/vkui";
 import Task from "../components/Task/Task";
 import PanelHeader from "@vkontakte/vkui/dist/components/PanelHeader/PanelHeader";
-import PanelHeaderButton from "@vkontakte/vkui/dist/components/PanelHeaderButton/PanelHeaderButton";
-import Icon28ChevronBack from "@vkontakte/icons/dist/28/chevron_back";
-import Icon24Back from "@vkontakte/icons/dist/24/back";
 import Placeholder from "@vkontakte/vkui/dist/components/Placeholder/Placeholder";
 import Button from "@vkontakte/vkui/dist/components/Button/Button";
 import { ProjectType } from "../types/project";
-import { RouterProps } from "../types";
 import useProjectBase from "../hooks/projectBase";
 
 import Icon56DocumentOutline from "@vkontakte/icons/dist/56/document_outline";
@@ -30,24 +24,35 @@ import Chart from "../components/Chart/Chart";
 
 import { calculateProjectStat } from "../utils/helpers";
 import { useTaskBase } from "../hooks/stepBase";
+import router from '../router';
 
-type ProjectProps = {} & ProjectType & RouterProps;
+type ProjectProps = ProjectType;
 
-const Project: FC<ProjectProps> = (props) => {
+const Project: FC<ProjectProps> = (props) => { 
   const [isContextOpened, setContextState] = useState(false);
   const { editProject, removeProject } = useProjectBase(props);
-  const { createTask } = useTaskBase(props);
+  const { createTask } = useTaskBase();
+
+  const onEditProjectClick = () => {
+    setContextState(false); 
+    editProject();
+  };
+
+  const onCreateTaskClick = () => {
+    setContextState(false); 
+    createTask();
+  };
+
+  const onRemoveProjectClick = () => {
+    setContextState(false); 
+    removeProject();
+  };
 
   return (
     <>
       <PanelHeader
         fixed={false}
-        left={<PanelHeaderBack onClick={props.go.bind(this, "home")} />}
-        // right={
-        //   <PanelHeaderButton>
-        //     <Icon28AddOutline />
-        //   </PanelHeaderButton>
-        // }
+        left={<PanelHeaderBack onClick={() => router.back()} />}
       >
         <PanelHeaderContent
           before={<></>}
@@ -70,13 +75,13 @@ const Project: FC<ProjectProps> = (props) => {
         onClose={() => setContextState(!isContextOpened)}
       >
         <List>
-          <Cell before={<Icon28WriteOutline />} onClick={editProject}>
+          <Cell before={<Icon28WriteOutline />} onClick={onEditProjectClick} >
             Переименовать
           </Cell>
-          <Cell before={<Icon28AddOutline />} onClick={createTask}>
+          <Cell before={<Icon28AddOutline />} onClick={onCreateTaskClick}>
             Добавить задачу
           </Cell>
-          <Cell before={<Icon28DeleteOutline />} onClick={removeProject}>
+          <Cell before={<Icon28DeleteOutline />} onClick={onRemoveProjectClick}>
             Удалить проект
           </Cell>
         </List>
@@ -101,9 +106,6 @@ const Project: FC<ProjectProps> = (props) => {
                 <Task
                   {...task}
                   key={index}
-                  setPopout={props.setPopout}
-                  setModal={props.setModal}
-                  go={props.go}
                 />
               ))}
           </CardScroll>

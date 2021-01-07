@@ -1,7 +1,7 @@
 import { Dispatch } from "react";
-import { createProject, deleteProject, getProjectList } from "../api";
-import { EVENTS } from "../constants/events";
-import { ProjectType } from "../types/project";
+import { createProject, deleteProject, getProjectList, updateProject } from "../../api";
+import { EVENTS } from "../../constants/events";
+import { ProjectType } from "../../types/project";
 
 // TODO: Fix any
 export const getProjectsAction = () => async (
@@ -28,6 +28,7 @@ export const getProjectsAction = () => async (
     });
 };
 
+// TODO: FIX ANY
 export const removeProjectAction = (_id: string) => async (
   dispatch: Dispatch<{ type: EVENTS; payload?: any }>
 ) => {
@@ -71,6 +72,31 @@ export const createProjectAction = (params: ProjectType) => async (
     .catch((error) => {
       dispatch({
         type: EVENTS.CREATE_PROJECT_FAILED,
+        payload: error,
+      });
+    });
+};
+
+
+export const updateProjectAction = (params: ProjectType) => async (
+  dispatch: Dispatch<{ type: EVENTS; payload?: any }>
+) => {
+  dispatch({
+    type: EVENTS.UPDATE_PROJECT_FETCH,
+    payload: {},
+  });
+
+  updateProject(params)
+    .then((result) => {
+      console.log("res", result);
+      dispatch({
+        type: EVENTS.UPDATE_PROJECT_SUCCESS,
+        payload: result,
+      });
+    })
+    .catch((error) => {
+      dispatch({
+        type: EVENTS.UPDATE_PROJECT_FAILED,
         payload: error,
       });
     });

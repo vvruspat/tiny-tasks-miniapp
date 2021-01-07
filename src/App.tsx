@@ -13,36 +13,45 @@ import "@vkontakte/vkui/dist/vkui.css";
 
 import Home from "./panels/Home";
 import Project from "./panels/Project";
-import EditStep from "./panels/EditStep";
-
-import { StepType, TaskType, UserType } from "./types";
+import { StepType, UserType } from "./types";
 import { ProjectType } from "./types/project";
 import { useDispatch } from "react-redux";
-import { getProjectsAction } from "./actions/projectActions";
+import { getProjectsAction } from "./redux/projects/actions";
 import EditProjectComponent from "./components/EditProject/EditProject";
 import EditTaskComponent from "./components/EditTask/EditTask";
 import EditStepComponent from "./components/EditStep/EditStep";
 import { ModalParamsType } from "./types/modal";
 import Icon28CancelOutline from "@vkontakte/icons/dist/28/cancel_outline";
 import { BridgeConfigConext } from "./context/BridgeConfig";
+import router from './router';
+import { PopoutManageConext } from './context/PopoutManage';
 
 const WINDOW_WITH_MODAL_HEIGHT = 600;
 
 const App = () => {
-  const [activePanel, setActivePanel] = useState("home");
+  const [routerState, setRouterState] = useState(router.getState());
   const [fetchedUser, setUser] = useState<UserType>();
-  const [popout, setPopout] = useState<React.ReactNode | null>(
-    <ScreenSpinner />
-  );
-  const [activeModal, setActiveModal] = useState<ModalParamsType | null>(null);
-  const [panelProps, setPanelProps] = useState({});
   const [currentWindowHeigh, setCurrentWindowHeight] = useState(
     window.innerHeight
   );
+
   const dispatch = useDispatch();
   const bridgeConfig = useContext(BridgeConfigConext);
+  const { popout, setPopout } = useContext(PopoutManageConext);
+
+  const routerListener = ({ toState }: { toState: any }) => {
+    setRouterState(toState);
+    console.log('toState', toState);
+  }
 
   useEffect(() => {
+    const unsubscribe = router.subscribe(routerListener);
+ 
+    return unsubscribe;
+  }, []);
+
+  useEffect(() => {
+    setPopout(<ScreenSpinner />);
     async function fetchData() {
       const user = await bridge.send("VKWebAppGetUserInfo");
 
@@ -54,12 +63,28 @@ const App = () => {
     fetchData();
   }, []);
 
-  async function setModal(modalParams: ModalParamsType | null) {
+  useEffect(() => {
+    if (routerState.modal) {
+      changeHeightForModal();
+    } else {
+      changeHeightForModal(true);
+    }
+}, [routerState.modal]);
+
+useEffect(() => {
+  if (popout) {
+    changeHeightForModal();
+  } else {
+    changeHeightForModal(true);
+  }
+}, [popout]);
+
+  async function changeHeightForModal(isHide = false) {
     if (bridge.supports("VKWebAppResizeWindow")) {
       const viewHeight =
         (bridgeConfig?.viewport_height ?? WINDOW_WITH_MODAL_HEIGHT) - 120;
 
-      if (modalParams) {
+      if (!isHide) {
         await bridge.send("VKWebAppResizeWindow", {
           width: window.innerWidth,
           height: viewHeight,
@@ -78,44 +103,31 @@ const App = () => {
         setCurrentWindowHeight(window.innerHeight);
       }
     }
-    setTimeout(
-      () => {
-        setActiveModal(modalParams);
-      },
-      modalParams ? 100 : 0
-    );
   }
-
-  const go = (to: string, props: any) => {
-    setPanelProps(props);
-    setActivePanel(to);
-  };
 
   const getModalHeader = (text: string) => (
     <ModalPageHeader
-      right={<Icon28CancelOutline onClick={() => setModal(null)} />}
+      right={<Icon28CancelOutline onClick={() => router.back()} />}
     >
       {text}
     </ModalPageHeader>
   );
 
   const modal = (
-    <ModalRoot activeModal={activeModal?.id ?? null}>
+    <ModalRoot activeModal={routerState.modal}>
       <ModalPage
-        id="editProject"
+        id="project/edit"
         header={getModalHeader("Настройки проекта")}
         settlingHeight={75}
         dynamicContentHeight={true}
       >
         <EditProjectComponent
-          onClose={() => setModal(null)}
-          project={
-            activeModal?.id === "editProject" ? activeModal?.props : null
-          }
+          onClose={() => router.back() }
+          _id={routerState.params._id}
         />
       </ModalPage>
-      <ModalPage
-        id="editTask"
+      {/* <ModalPage
+        id="project/task/edit"
         header={getModalHeader("Настройки задачи")}
         settlingHeight={15}
       >
@@ -124,38 +136,35 @@ const App = () => {
         />
       </ModalPage>
       <ModalPage
-        id="editStep"
+        id="project/task/step/edit"
         header={getModalHeader("Настройки подзадачи")}
         settlingHeight={15}
       >
         <EditStepComponent
-          step={activeModal?.id === "editStep" ? activeModal?.props : null}
+          step={routerState.params ?? null}
         />
-      </ModalPage>
+      </ModalPage> */}
     </ModalRoot>
   );
 
   return (
-    <View activePanel={activePanel} modal={modal} popout={popout}>
-      <Panel id="home">
-        <Home go={go} setPopout={setPopout} setModal={setModal} />
+    <View activePanel={routerState.page} modal={modal} popout={popout}>
+      <Panel id="projects">
+        <Home />
       </Panel>
       <Panel id="project">
         <Project
-          go={go}
-          setPopout={setPopout}
-          setModal={setModal}
-          {...(panelProps as ProjectType)}
+          {...(routerState.params as ProjectType)}
         />
       </Panel>
-      <Panel id="editStep">
+      {/* <Panel id="editStep">
         <EditStep
           go={go}
           setPopout={setPopout}
           setModal={setModal}
           {...(panelProps as StepType)}
         />
-      </Panel>
+      </Panel> */}
     </View>
   );
 };

@@ -57,23 +57,23 @@ type RemoveProjectFailedAction = {
 };
 
 type GetProjectListFetchingAction = {
-  type: EVENTS.GET_PROJECTS_FAILED;
+  type: EVENTS.GET_PROJECTS_FETCH;
 };
 
 type GetProjectFetchingAction = {
-  type: EVENTS.GET_PROJECT_FAILED;
+  type: EVENTS.GET_PROJECT_FETCH;
 };
 
 type CreateProjectFetchingAction = {
-  type: EVENTS.CREATE_PROJECT_FAILED;
+  type: EVENTS.CREATE_PROJECT_FETCH;
 };
 
 type UpdateProjectFetchingAction = {
-  type: EVENTS.UPDATE_PROJECT_FAILED;
+  type: EVENTS.UPDATE_PROJECT_FETCH;
 };
 
 type RemoveProjectFetchingAction = {
-  type: EVENTS.DELETE_PROJECT_FAILED;
+  type: EVENTS.DELETE_PROJECT_FETCH;
 };
 
 type ProjectReducerActionsSuccess =

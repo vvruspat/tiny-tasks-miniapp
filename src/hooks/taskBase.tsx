@@ -1,19 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useDispatch } from "react-redux";
 import Alert from "@vkontakte/vkui/dist/components/Alert/Alert";
-import { removeProjectAction } from "../actions/projectActions";
-import { RouterProps, StepType, TaskType } from "../types";
+import { removeProjectAction } from "../redux/projects/actions";
+import { StepType, TaskType } from "../types";
 import { ProjectType } from "../types/project";
+import { PopoutManageConext } from '../context/PopoutManage';
 
-export const useProjectBase = (
-  props: RouterProps | (ProjectType & RouterProps)
-) => {
+export const useProjectBase = (props: ProjectType) => {
   const dispatch = useDispatch();
+  const { setPopout } = useContext(PopoutManageConext);
 
   const createProject = () => {};
   const editProject = () => {};
   const removeProject = () => {
-    const { _id, setPopout } = props as ProjectType & RouterProps;
+    const { _id } = props as ProjectType;
 
     if (_id) {
       setPopout(
@@ -49,7 +49,7 @@ export const useProjectBase = (
   };
 };
 
-export const useTaskBase = (props: RouterProps, task?: TaskType) => {
+export const useTaskBase = (task?: TaskType) => {
   const dispatch = useDispatch();
 
   const createTask = () => {};
@@ -63,7 +63,7 @@ export const useTaskBase = (props: RouterProps, task?: TaskType) => {
   };
 };
 
-export const useStepBase = (props: RouterProps, step?: StepType) => {
+export const useStepBase = (step?: StepType) => {
   const dispatch = useDispatch();
 
   const createStep = () => {};

@@ -9,6 +9,7 @@ import "./constants/config";
 import App from "./App";
 import { AdaptivityProvider, ConfigProvider } from "@vkontakte/vkui";
 import BridgeConfig from "./context/BridgeConfig";
+import PopoutManage from './context/PopoutManage';
 
 // Init VK  Mini App
 bridge.send("VKWebAppInit");
@@ -19,7 +20,9 @@ ReactDOM.render(
     <ConfigProvider>
       <AdaptivityProvider>
         <BridgeConfig>
-          <App />
+          <PopoutManage>
+            <App />
+          </PopoutManage>
         </BridgeConfig>
       </AdaptivityProvider>
     </ConfigProvider>

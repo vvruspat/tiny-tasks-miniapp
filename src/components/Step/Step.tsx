@@ -5,14 +5,14 @@ import StepStatus from "../StepStatus/StepStatus";
 import { StepType } from "../../types";
 
 import "./Step.css";
-import { RouterProps } from "../../types/router";
+import router from '../../router';
 
-type StepProp = {} & StepType & RouterProps;
+type StepProp = {} & StepType;
 
 const Step: FC<StepProp> = (props) => {
   const onEditStepClick = () => {
     console.log("gotoEdit");
-    props.go("editStep", props);
+    router.go("project/task/step", props);
   };
 
   return (

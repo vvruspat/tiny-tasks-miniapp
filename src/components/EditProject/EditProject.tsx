@@ -8,38 +8,48 @@ import {
 } from "@vkontakte/vkui";
 import React, { FC, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createProjectAction } from "../../actions/projectActions";
+import { createProjectAction, updateProjectAction } from "../../redux/projects/actions";
 import { StateType } from "../../redux/configureStore";
 import { ProjectType } from "../../types/project";
 
-type EditProjectProps = { onClose: () => void; project: ProjectType | null };
+type EditProjectProps = { 
+  onClose: () => void; 
+  _id: string | null;
+};
 
 const EditProjectComponent: FC<EditProjectProps> = (
   props: EditProjectProps
 ) => {
-  const [name, setName] = useState(props?.project?.name ?? "");
+  const [isLoading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
+  const project = useSelector((state: StateType) => state.projects.projects.find(proj => proj._id === props._id));
+  const [name, setName] = useState(project?.name ?? "Новый проект");
   const error = useSelector((state: StateType) => state.projects.error);
   const isFetching = useSelector(
     (state: StateType) => state.projects.isFetching
   );
 
   useEffect(() => {
-    if (!isFetching && !error) {
+    if (!isFetching && !error && isLoading) {
       props.onClose();
     }
-  }, [isFetching, error]);
+  }, [isFetching, error, isLoading]);
 
   const onCreateProjectClick = () => {
     const newProject: ProjectType = {
-      ...(props.project ?? {
+      ...(project ?? {
         tasks: [],
       }),
       name: name,
     };
 
-    dispatch(createProjectAction(newProject));
+    if (newProject._id) {
+      dispatch(updateProjectAction(newProject));
+    } else {
+      dispatch(createProjectAction(newProject));
+    }
+    setLoading(true);
   };
 
   return (
@@ -68,7 +78,7 @@ const EditProjectComponent: FC<EditProjectProps> = (
                     <Spinner size="small" style={{ margin: "0 20px" }} />
                   </span>
                 )}
-                {props?.project?._id ? "Обновить" : "Создать"}
+                {project?._id ? "Обновить" : "Создать"}
               </>
             </Button>
           </FormItem>

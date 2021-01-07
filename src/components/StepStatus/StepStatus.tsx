@@ -1,14 +1,14 @@
-import React, { createRef, FC, Ref, RefObject, useRef } from "react";
+import React, { createRef, FC, Ref, RefObject, useContext, useRef } from "react";
 import cn from "classnames";
 import ChangeStatusPopup from "../ChangeStatusPopup/ChangeStatusPopup";
 
 import "./StepStatus.css";
-import { RouterProps } from "../../types";
 import { Button } from "@vkontakte/vkui";
+import { PopoutManageConext } from '../../context/PopoutManage';
 
 type StepStatusType = {
   status: number;
-} & RouterProps;
+};
 
 enum EStepStatus {
   waiting,
@@ -36,16 +36,14 @@ const getClassByStatus = (status: EStepStatus) => {
 
 const StepStatus: FC<StepStatusType> = (props) => {
   const buttonRef = createRef<Element>();
+  const { setPopout } = useContext(PopoutManageConext);
 
   const showStatusMenu = (event: React.MouseEvent) => {
     event.stopPropagation();
 
-    props.setPopout(
+    setPopout(
       <ChangeStatusPopup
-        onClose={() => props.setPopout && props.setPopout(null)}
-        go={props.go}
-        setPopout={props.setPopout}
-        setModal={props.setModal}
+        onClose={() => setPopout(null)}
         ref={buttonRef}
       />
     );

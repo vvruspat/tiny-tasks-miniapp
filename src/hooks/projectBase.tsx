@@ -1,25 +1,29 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useDispatch } from "react-redux";
 import Alert from "@vkontakte/vkui/dist/components/Alert/Alert";
-import { removeProjectAction } from "../actions/projectActions";
-import { RouterProps } from "../types";
+import { removeProjectAction } from "../redux/projects/actions";
 import { ProjectType } from "../types/project";
+import router from '../router';
+import { PopoutManageConext } from '../context/PopoutManage';
 
-const useProjectBase = (props: RouterProps | (ProjectType & RouterProps)) => {
+const useProjectBase = (props?: ProjectType) => {
   const dispatch = useDispatch();
+  const { setPopout } = useContext(PopoutManageConext);
 
   const createProject = () => {
-    const newProject: ProjectType = {
-      name: "Новый проект",
-      tasks: [],
-    };
-
-    props.setModal({ id: "editProject", props: newProject });
+    router.go("project/edit", { _id: null });
   };
 
-  const editProject = () => {};
+  const editProject = () => {
+    const properties = props as ProjectType;
+
+    if (properties._id) {
+      router.go("project/edit", { _id: properties._id });
+    }
+  };
+
   const removeProject = () => {
-    const { _id, setPopout } = props as ProjectType & RouterProps;
+    const { _id } = props as ProjectType;
 
     if (_id) {
       setPopout(
@@ -36,6 +40,7 @@ const useProjectBase = (props: RouterProps | (ProjectType & RouterProps)) => {
               mode: "destructive",
               action: () => {
                 dispatch(removeProjectAction(_id));
+                router.go('projects', {});
               },
             },
           ]}

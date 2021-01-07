@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useContext, useState } from "react";
 import {
   platform,
   IOS,
@@ -18,23 +18,25 @@ import PanelHeaderButton from "@vkontakte/vkui/dist/components/PanelHeaderButton
 import Icon28ChevronBack from "@vkontakte/icons/dist/28/chevron_back";
 import Icon24Back from "@vkontakte/icons/dist/24/back";
 import UserSelector from "../components/UserSelectorModal/UserSelectorModal";
-import { RouterProps, StepType, UserType } from "../types";
+import { StepType, UserType } from "../types";
+import router from '../router';
+import { PopoutManageConext } from '../context/PopoutManage';
 
-const osName = platform();
-
-type EditStepProps = {} & StepType & RouterProps;
+type EditStepProps = {} & StepType;
 
 const EditStep: FC<EditStepProps> = (props) => {
+  const { setPopout } = useContext(PopoutManageConext);
+
   const onUserSelect = (user: UserType) => {
     console.log("user", user);
-    props.setPopout(null);
+    setPopout(null);
   };
 
   const showUserSelect = () => {
-    props.setPopout(
+    setPopout(
       <UserSelector
         onSelect={onUserSelect}
-        onClose={() => props.setPopout(null)}
+        onClose={() => setPopout(null)}
       />
     );
   };
@@ -57,7 +59,7 @@ const EditStep: FC<EditStepProps> = (props) => {
   return (
     <>
       <PanelHeader
-        left={<PanelHeaderBack onClick={props.go.bind(this, "home")} />}
+        left={<PanelHeaderBack onClick={() => router.go("projects")} />}
       >
         {props.name ? props.name : "Добавить шаг"}
       </PanelHeader>
