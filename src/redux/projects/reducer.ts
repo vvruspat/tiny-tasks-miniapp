@@ -33,7 +33,9 @@ export default function ProjectsReducer(
       const project = action.payload;
 
       state.isFetching = false;
-      state.projects = state.projects.map((_project) => (project._id === _project._id) ? project : _project);
+      state.projects = state.projects.map((_project) =>
+        project._id === _project._id ? project : _project
+      );
 
       return state;
     }
@@ -44,9 +46,9 @@ export default function ProjectsReducer(
       return {
         ...state,
         isFetching: false,
-        projects: state?.projects?.filter(
-          (_project) => (projectId !== _project._id)
-        ) ?? [],
+        projects:
+          state?.projects?.filter((_project) => projectId !== _project._id) ??
+          [],
       };
     }
 

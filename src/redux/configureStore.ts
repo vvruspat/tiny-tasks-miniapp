@@ -12,7 +12,8 @@ export const preloadedState: StateType = {
   projects: projectsInitialState,
 };
 
-const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const composeEnhancers =
+  (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export default function configureStore(state: StateType = preloadedState) {
   const middlewares = [thunkMiddleware];
