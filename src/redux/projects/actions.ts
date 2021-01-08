@@ -33,13 +33,21 @@ export const getProjectsAction = () => async (
     });
 };
 
-// TODO: FIX ANY
+type DeleteProjectActionDispatch = {
+  type: EVENTS.DELETE_PROJECT_FETCH;
+} | {
+  type: EVENTS.DELETE_PROJECT_SUCCESS;
+  payload: string;
+} | {
+  type: EVENTS.DELETE_PROJECT_FAILED;
+  payload: Error;
+};
+
 export const removeProjectAction = (_id: string) => async (
-  dispatch: Dispatch<{ type: EVENTS; payload?: any }>
+  dispatch: Dispatch<DeleteProjectActionDispatch>
 ) => {
   dispatch({
     type: EVENTS.DELETE_PROJECT_FETCH,
-    payload: {},
   });
 
   deleteProject(_id)
@@ -47,7 +55,7 @@ export const removeProjectAction = (_id: string) => async (
       console.log("res", result);
       dispatch({
         type: EVENTS.DELETE_PROJECT_SUCCESS,
-        payload: result,
+        payload: _id,
       });
     })
     .catch((error) => {

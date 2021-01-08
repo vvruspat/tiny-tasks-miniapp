@@ -6,7 +6,7 @@ import { ProjectType } from "../types/project";
 import router from "../router";
 import { PopoutManageConext } from "../context/PopoutManage";
 
-const useProjectBase = (props?: ProjectType) => {
+const useProjectBase = () => {
   const dispatch = useDispatch();
   const { setPopout } = useContext(PopoutManageConext);
 
@@ -14,16 +14,14 @@ const useProjectBase = (props?: ProjectType) => {
     router.go("project/edit", { _id: null });
   };
 
-  const editProject = () => {
-    const properties = props as ProjectType;
-
-    if (properties._id) {
-      router.go("project/edit", { _id: properties._id });
+  const editProject = (project: ProjectType) => {
+    if (project._id) {
+      router.go("project/edit", { _id: project._id });
     }
   };
 
-  const removeProject = () => {
-    const { _id } = props as ProjectType;
+  const removeProject = (project: ProjectType) => {
+    const { _id } = project;
 
     if (_id) {
       setPopout(

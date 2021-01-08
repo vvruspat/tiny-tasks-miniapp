@@ -28,7 +28,7 @@ type UpdateProjectSuccessAction = {
 
 type RemoveProjectSuccessAction = {
   type: EVENTS.DELETE_PROJECT_SUCCESS;
-  payload: ProjectType;
+  payload: string;
 };
 
 type GetProjectListFailedAction = {

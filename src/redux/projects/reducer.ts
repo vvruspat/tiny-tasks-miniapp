@@ -13,7 +13,6 @@ export default function ProjectsReducer(
 ) {
   switch (action.type) {
     case EVENTS.GET_PROJECTS_SUCCESS: {
-      console.log("state", action.payload);
       state = {
         error: null,
         isFetching: false,
@@ -24,6 +23,7 @@ export default function ProjectsReducer(
     }
 
     case EVENTS.CREATE_PROJECT_SUCCESS: {
+      state.isFetching = false;
       state.projects.push(action.payload);
 
       return state;
@@ -32,24 +32,22 @@ export default function ProjectsReducer(
     case EVENTS.UPDATE_PROJECT_SUCCESS: {
       const project = action.payload;
 
-      state.projects =
-        state?.projects?.filter(
-          (_project) => !(project._id === _project._id)
-        ) ?? [];
-      state.projects.push(action.payload);
+      state.isFetching = false;
+      state.projects = state.projects.map((_project) => (project._id === _project._id) ? project : _project);
 
       return state;
     }
 
     case EVENTS.DELETE_PROJECT_SUCCESS: {
-      const project = action.payload;
+      const projectId = action.payload;
 
-      state.projects =
-        state?.projects?.filter(
-          (_project) => !(project._id === _project._id)
-        ) ?? [];
-
-      return state;
+      return {
+        ...state,
+        isFetching: false,
+        projects: state?.projects?.filter(
+          (_project) => (projectId !== _project._id)
+        ) ?? [],
+      };
     }
 
     case EVENTS.GET_PROJECTS_FETCH:

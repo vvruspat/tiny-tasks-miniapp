@@ -30,12 +30,12 @@ type ProjectProps = ProjectType;
 
 const Project: FC<ProjectProps> = (props) => {
   const [isContextOpened, setContextState] = useState(false);
-  const { editProject, removeProject } = useProjectBase(props);
+  const { editProject, removeProject } = useProjectBase();
   const { createTask } = useTaskBase();
 
   const onEditProjectClick = () => {
     setContextState(false);
-    editProject();
+    editProject(props);
   };
 
   const onCreateTaskClick = () => {
@@ -45,7 +45,7 @@ const Project: FC<ProjectProps> = (props) => {
 
   const onRemoveProjectClick = () => {
     setContextState(false);
-    removeProject();
+    removeProject(props);
   };
 
   return (
@@ -91,7 +91,7 @@ const Project: FC<ProjectProps> = (props) => {
         <>
           <Placeholder
             icon={<Icon56DocumentOutline />}
-            action={<Button size="l">Создать</Button>}
+            action={<Button size="l">Добавить</Button>}
           >
             В вашем проекте нет ни одной задачи.
           </Placeholder>

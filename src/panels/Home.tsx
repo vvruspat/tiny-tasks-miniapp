@@ -13,8 +13,11 @@ import { ProjectType } from "../types/project";
 
 import Icon56DocumentOutline from "@vkontakte/icons/dist/56/document_outline";
 import Icon28AddOutline from "@vkontakte/icons/dist/28/add_outline";
+import Icon28EditOutline from '@vkontakte/icons/dist/28/edit_outline';
+
 import useProjectBase from "../hooks/projectBase";
 import router from "../router";
+import { IconButton } from '@vkontakte/vkui';
 
 type HomeProps = {};
 
@@ -23,7 +26,7 @@ const Home: FC<HomeProps> = (props) => {
     (state: StateType) => state.projects,
     shallowEqual
   );
-  const { createProject } = useProjectBase();
+  const { createProject, editProject } = useProjectBase();
 
   return (
     <>
@@ -42,46 +45,47 @@ const Home: FC<HomeProps> = (props) => {
         Проекты
       </PanelHeader>
 
-      <Group title="Проекты">
-        {!projects?.projects || projects?.projects?.length === 0 ? (
-          <Placeholder
-            icon={<Icon56DocumentOutline />}
-            action={
-              <Button
-                size="l"
-                onClick={() => {
-                  createProject();
-                }}
-              >
-                Создать
-              </Button>
-            }
-          >
-            Сейчас, у вас нет активных проектов, но вы можете создать проект
-            прямо сейчас
-          </Placeholder>
-        ) : (
-          <List>
-            {projects?.projects.map((project: ProjectType, index: number) => {
-              return (
-                <SimpleCell
-                  onClick={() => router.go("project", project)}
-                  key={index}
-                  expandable
-                  description={`${project.tasks?.length ?? 0} ${plural(
-                    project.tasks?.length ?? 0,
-                    "задач",
-                    "задача",
-                    "задачи"
-                  )}`}
+        <Group title="Проекты">
+          {!projects?.projects || projects?.projects?.length === 0 ? (
+            <Placeholder
+              icon={<Icon56DocumentOutline />}
+              action={
+                <Button
+                  size="l"
+                  onClick={() => {
+                    createProject();
+                  }}
                 >
-                  {project.name}
-                </SimpleCell>
-              );
-            })}
-          </List>
-        )}
-      </Group>
+                  Создать
+                </Button>
+              }
+            >
+              Сейчас, у вас нет активных проектов, но вы можете создать проект
+              прямо сейчас
+            </Placeholder>
+          ) : (
+            <List>
+              {projects?.projects.map((project: ProjectType, index: number) => {
+                return (
+                  <SimpleCell
+                    onClick={() => router.go("project", project)}
+                    key={index}
+                    after={<IconButton icon={<Icon28EditOutline />} onClick={(event) => {event.stopPropagation(); editProject(project)}} />}
+                    expandable
+                    description={`${project.tasks?.length ?? 0} ${plural(
+                      project.tasks?.length ?? 0,
+                      "задач",
+                      "задача",
+                      "задачи"
+                    )}`}
+                  >
+                    {project.name}
+                  </SimpleCell>
+                );
+              })}
+            </List>
+          )}
+        </Group>
     </>
   );
 };

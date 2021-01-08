@@ -76,7 +76,12 @@ const EditProjectComponent: FC<EditProjectProps> = (
             />
           </FormItem>
           <FormItem>
-            <Button size="l" stretched before={isFetching && <Spinner size="small" />} onClick={onCreateProjectClick}>
+            <Button
+              size="l"
+              stretched
+              before={isFetching && <Spinner size="small" />}
+              onClick={onCreateProjectClick}
+            >
               {project?._id ? "Обновить" : "Создать"}
             </Button>
           </FormItem>
