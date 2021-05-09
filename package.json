@@ -30,7 +30,7 @@
     "@types/react-dom": "^17.0.0",
     "@types/uuid": "^8.3.0",
     "@vkontakte/icons": "^1.69.0",
-    "@vkontakte/router": "https://git@github.com:vvruspat/vk-router.git",
+    "@vkontakte/router": "https://github.com/vvruspat/vk-router.git",
     "@vkontakte/vk-bridge": "^2.3.0",
     "@vkontakte/vk-miniapps-deploy": "0.0.17",
     "@vkontakte/vkjs": "^0.20.0",
