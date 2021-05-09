@@ -49,7 +49,6 @@ const App = () => {
     setTimeout(() => {
       setRouterState(toState);
     }, 100);
-    console.log("toState", toState, routerState);
   };
 
   useEffect(() => {
@@ -70,14 +69,6 @@ const App = () => {
     }
     fetchData();
   }, []);
-
-  // useEffect(() => {
-  //   if (routerState.modal) {
-  //     changeHeightForModal();
-  //   } else {
-  //     changeHeightForModal(true);
-  //   }
-  // }, [routerState.modal]);
 
   useEffect(() => {
     if (popout) {

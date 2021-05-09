@@ -8,18 +8,16 @@ import {
 import { EVENTS } from "../../constants/events";
 import { ProjectType } from "../../types/project";
 
-// TODO: Fix any
 export const getProjectsAction = () => async (
-  dispatch: Dispatch<{ type: EVENTS; payload?: any }>
+  dispatch: Dispatch<{ type: EVENTS; payload?: ProjectType[] }>
 ) => {
   dispatch({
     type: EVENTS.GET_PROJECTS_FETCH,
-    payload: {},
+    payload: [],
   });
 
   getProjectList()
     .then((result) => {
-      console.log("res", result);
       dispatch({
         type: EVENTS.GET_PROJECTS_SUCCESS,
         payload: result,
@@ -55,7 +53,6 @@ export const removeProjectAction = (_id: string) => async (
 
   deleteProject(_id)
     .then((result) => {
-      console.log("res", result);
       dispatch({
         type: EVENTS.DELETE_PROJECT_SUCCESS,
         payload: _id,
@@ -70,7 +67,7 @@ export const removeProjectAction = (_id: string) => async (
 };
 
 export const createProjectAction = (params: ProjectType) => async (
-  dispatch: Dispatch<{ type: EVENTS; payload?: any }>
+  dispatch: Dispatch<{ type: EVENTS; payload?: ProjectType }>
 ) => {
   dispatch({
     type: EVENTS.CREATE_PROJECT_FETCH,
@@ -79,7 +76,6 @@ export const createProjectAction = (params: ProjectType) => async (
 
   createProject(params)
     .then((result) => {
-      console.log("res", result);
       dispatch({
         type: EVENTS.CREATE_PROJECT_SUCCESS,
         payload: result,
@@ -94,7 +90,7 @@ export const createProjectAction = (params: ProjectType) => async (
 };
 
 export const updateProjectAction = (params: ProjectType) => async (
-  dispatch: Dispatch<{ type: EVENTS; payload?: any }>
+  dispatch: Dispatch<{ type: EVENTS; payload?: ProjectType }>
 ) => {
   dispatch({
     type: EVENTS.UPDATE_PROJECT_FETCH,
@@ -103,7 +99,6 @@ export const updateProjectAction = (params: ProjectType) => async (
 
   updateProject(params)
     .then((result) => {
-      console.log("res", result);
       dispatch({
         type: EVENTS.UPDATE_PROJECT_SUCCESS,
         payload: result,

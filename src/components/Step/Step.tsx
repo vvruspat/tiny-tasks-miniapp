@@ -6,7 +6,7 @@ import { StepType } from "../../types";
 
 import "./Step.css";
 import router from "../../router";
-import EditStep from '../../panels/EditStep';
+import EditStep from "../../panels/EditStep";
 
 type StepProp = {} & StepType;
 

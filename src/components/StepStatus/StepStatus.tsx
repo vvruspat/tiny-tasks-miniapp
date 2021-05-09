@@ -49,7 +49,10 @@ const StepStatus: FC<StepStatusType> = (props) => {
     event.stopPropagation();
 
     setPopout(
-      <ChangeStatusPopup onClose={() => setPopout(null)} toggleRef={buttonRef} />
+      <ChangeStatusPopup
+        onClose={() => setPopout(null)}
+        toggleRef={buttonRef}
+      />
     );
   };
 

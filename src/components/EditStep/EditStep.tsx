@@ -1,14 +1,23 @@
-import { Group, FormLayout, FormItem, Input, Button, CustomSelectOption, Select, SimpleCell, Avatar } from "@vkontakte/vkui";
+import {
+  Group,
+  FormLayout,
+  FormItem,
+  Input,
+  Button,
+  CustomSelectOption,
+  Select,
+  SimpleCell,
+  Avatar,
+} from "@vkontakte/vkui";
 import React, { FC, useContext, useEffect, useState } from "react";
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { PopoutManageConext } from '../../context/PopoutManage';
-import { StateType } from '../../redux/configureStore';
-import { updateProjectAction } from '../../redux/projects/actions';
-import router from '../../router';
-import { UserType } from '../../types';
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { PopoutManageConext } from "../../context/PopoutManage";
+import { StateType } from "../../redux/configureStore";
+import { updateProjectAction } from "../../redux/projects/actions";
+import router from "../../router";
+import { UserType } from "../../types";
 import { StepType } from "../../types/step";
 import UserSelector from "../UserSelectorModal/UserSelectorModal";
-
 
 type EditStepProps = {
   onClose: () => void;
@@ -30,10 +39,11 @@ const EditStepComponent: FC<EditStepProps> = (props: EditStepProps) => {
   const routerState = router.getState();
   const { _id, taskId, stepId } = routerState.params;
 
-  console.log('routerState.params', routerState.params);
+  console.log("routerState.params", routerState.params);
 
-  const project = useSelector((state: StateType) =>
-    state.projects.projects.find(_project => _project._id === _id)!,
+  const project = useSelector(
+    (state: StateType) =>
+      state.projects.projects.find((_project) => _project._id === _id)!,
     shallowEqual
   );
   const task = project.tasks.find((_task) => _task._id === taskId)!;
@@ -50,7 +60,7 @@ const EditStepComponent: FC<EditStepProps> = (props: EditStepProps) => {
   const isFetching = useSelector(
     (state: StateType) => state.projects.isFetching
   );
-  
+
   useEffect(() => {
     if (!isFetching && !error && isLoading) {
       props.onClose();
@@ -87,17 +97,21 @@ const EditStepComponent: FC<EditStepProps> = (props: EditStepProps) => {
       name,
       status,
       assignee,
-    }
+    };
 
     if (updatedStep._id) {
-      task.steps = task.steps.map(_step => _step._id === stepId ? updatedStep : _step);
+      task.steps = task.steps.map((_step) =>
+        _step._id === stepId ? updatedStep : _step
+      );
     } else {
       task.steps.push(updatedStep);
     }
 
-    console.log('Updated steps', task.steps);
+    console.log("Updated steps", task.steps);
 
-    project.tasks = project.tasks.map(_task => _task._id === taskId ? task : _task);
+    project.tasks = project.tasks.map((_task) =>
+      _task._id === taskId ? task : _task
+    );
 
     dispatch(updateProjectAction(project));
     setLoading(true);
@@ -143,9 +157,11 @@ const EditStepComponent: FC<EditStepProps> = (props: EditStepProps) => {
             Назначить исполнителя
           </SimpleCell>
         </Group>
-        
+
         <FormItem>
-          <Button size="l" stretched onClick={onSaveStepClick}>{step?._id ? "Сохранить" : "Добавить"}</Button>
+          <Button size="l" stretched onClick={onSaveStepClick}>
+            {step?._id ? "Сохранить" : "Добавить"}
+          </Button>
         </FormItem>
       </FormLayout>
     </Group>
