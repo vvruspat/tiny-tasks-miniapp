@@ -9,7 +9,7 @@ import { EVENTS } from "../../constants/events";
 import { ProjectType } from "../../types/project";
 
 export const getProjectsAction = () => async (
-  dispatch: Dispatch<{ type: EVENTS; payload?: ProjectType[] }>
+  dispatch: Dispatch<{ type: EVENTS; payload?: ProjectType[] | Error }>
 ) => {
   dispatch({
     type: EVENTS.GET_PROJECTS_FETCH,
@@ -67,11 +67,10 @@ export const removeProjectAction = (_id: string) => async (
 };
 
 export const createProjectAction = (params: ProjectType) => async (
-  dispatch: Dispatch<{ type: EVENTS; payload?: ProjectType }>
+  dispatch: Dispatch<{ type: EVENTS; payload?: ProjectType | Error }>
 ) => {
   dispatch({
     type: EVENTS.CREATE_PROJECT_FETCH,
-    payload: {},
   });
 
   createProject(params)
@@ -90,11 +89,10 @@ export const createProjectAction = (params: ProjectType) => async (
 };
 
 export const updateProjectAction = (params: ProjectType) => async (
-  dispatch: Dispatch<{ type: EVENTS; payload?: ProjectType }>
+  dispatch: Dispatch<{ type: EVENTS; payload?: ProjectType | Error }>
 ) => {
   dispatch({
     type: EVENTS.UPDATE_PROJECT_FETCH,
-    payload: {},
   });
 
   updateProject(params)

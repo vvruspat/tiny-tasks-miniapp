@@ -21,13 +21,13 @@ async function _fetch<T>(
 }
 
 export const getProjectList = () =>
-  _fetch(`${server}/api/project/`, {
+  _fetch<ProjectType[]>(`${server}/api/project/`, {
     headers: requestHeaders,
     method: "get",
   });
 
 export const getProject = (_id: string) =>
-  _fetch(`${server}/api/project/${_id}`, {
+  _fetch<ProjectType>(`${server}/api/project/${_id}`, {
     headers: requestHeaders,
     method: "get",
   });
@@ -39,14 +39,14 @@ export const deleteProject = (_id: string) =>
   });
 
 export const createProject = (params: ProjectType) =>
-  _fetch(`${server}/api/project/`, {
+  _fetch<ProjectType>(`${server}/api/project/`, {
     headers: requestHeaders,
     method: "post",
     body: JSON.stringify(params),
   });
 
 export const updateProject = (params: ProjectType) =>
-  _fetch(`${server}/api/project/${params._id}`, {
+  _fetch<ProjectType>(`${server}/api/project/${params._id}`, {
     headers: requestHeaders,
     method: "put",
     body: JSON.stringify(params),
