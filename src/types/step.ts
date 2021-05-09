@@ -1,9 +1,10 @@
 import { CommentType } from "./comment";
 
 export type StepType = {
-  id: string;
+  _id?: string;
   name: string;
-  owner: number;
+  creator: number;
+  assignee: number;
   status: number;
   comments?: CommentType[];
 };

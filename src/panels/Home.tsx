@@ -13,7 +13,7 @@ import { ProjectType } from "../types/project";
 
 import Icon56DocumentOutline from "@vkontakte/icons/dist/56/document_outline";
 import Icon28AddOutline from "@vkontakte/icons/dist/28/add_outline";
-import Icon28EditOutline from "@vkontakte/icons/dist/28/edit_outline";
+import Icon28SlidersOutline from '@vkontakte/icons/dist/28/sliders_outline';
 
 import useProjectBase from "../hooks/projectBase";
 import router from "../router";
@@ -68,11 +68,11 @@ const Home: FC<HomeProps> = (props) => {
             {projects?.projects.map((project: ProjectType, index: number) => {
               return (
                 <SimpleCell
-                  onClick={() => router.go("project", project)}
+                  onClick={() => router.go("project", {_id: project._id})}
                   key={index}
                   after={
                     <IconButton
-                      icon={<Icon28EditOutline />}
+                      icon={<Icon28SlidersOutline />}
                       onClick={(event) => {
                         event.stopPropagation();
                         editProject(project);

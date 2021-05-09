@@ -3,17 +3,17 @@ import { ActionSheet, ActionSheetItem } from "@vkontakte/vkui";
 import StepStatus from "../StepStatus/StepStatus";
 
 type ChangeStatusPopupProps = {
-  ref: RefObject<Element>;
+  toggleRef: RefObject<Element>;
   onClose: () => void;
   status?: boolean;
 };
 
 const ChangeStatusPopup: React.FC<ChangeStatusPopupProps> = ({
-  ref,
+  toggleRef,
   onClose,
 }) => {
   return (
-    ref?.current && (
+    toggleRef.current && (
       <ActionSheet
         onClose={onClose}
         iosCloseItem={
@@ -21,7 +21,7 @@ const ChangeStatusPopup: React.FC<ChangeStatusPopupProps> = ({
             Отменить
           </ActionSheetItem>
         }
-        toggleRef={ref.current}
+        toggleRef={toggleRef.current}
       >
         <ActionSheetItem autoclose before={<StepStatus status={0} />}>
           Ожидает

@@ -6,13 +6,14 @@ import { StepType } from "../../types";
 
 import "./Step.css";
 import router from "../../router";
+import EditStep from '../../panels/EditStep';
 
 type StepProp = {} & StepType;
 
 const Step: FC<StepProp> = (props) => {
   const onEditStepClick = () => {
     console.log("gotoEdit");
-    router.go("project/task/step", props);
+    // editStep()
   };
 
   return (

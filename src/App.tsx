@@ -40,8 +40,16 @@ const App = () => {
   const { popout, setPopout } = useContext(PopoutManageConext);
 
   const routerListener = ({ toState }: { toState: any }) => {
-    setRouterState(toState);
-    console.log("toState", toState);
+    if (toState.modal) {
+      changeHeightForModal();
+    } else {
+      changeHeightForModal(true);
+    }
+
+    setTimeout(() => {
+      setRouterState(toState);
+    }, 100);
+    console.log("toState", toState, routerState);
   };
 
   useEffect(() => {
@@ -63,13 +71,13 @@ const App = () => {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    if (routerState.modal) {
-      changeHeightForModal();
-    } else {
-      changeHeightForModal(true);
-    }
-  }, [routerState.modal]);
+  // useEffect(() => {
+  //   if (routerState.modal) {
+  //     changeHeightForModal();
+  //   } else {
+  //     changeHeightForModal(true);
+  //   }
+  // }, [routerState.modal]);
 
   useEffect(() => {
     if (popout) {
@@ -126,24 +134,28 @@ const App = () => {
           _id={routerState.params._id}
         />
       </ModalPage>
-      {/* <ModalPage
+      <ModalPage
         id="project/task/edit"
         header={getModalHeader("Настройки задачи")}
         settlingHeight={15}
       >
         <EditTaskComponent
-          task={activeModal?.id === "editTask" ? activeModal?.props : null}
+          onClose={() => router.back()}
+          _id={routerState.params._id}
+          taskId={routerState.params.taskId}
         />
       </ModalPage>
       <ModalPage
         id="project/task/step/edit"
         header={getModalHeader("Настройки подзадачи")}
-        settlingHeight={15}
       >
         <EditStepComponent
-          step={routerState.params ?? null}
+          onClose={() => router.back()}
+          _id={routerState.params._id}
+          taskId={routerState.params.taskId}
+          stepId={routerState.params.stepId}
         />
-      </ModalPage> */}
+      </ModalPage>
     </ModalRoot>
   );
 
@@ -153,16 +165,8 @@ const App = () => {
         <Home />
       </Panel>
       <Panel id="project">
-        <Project {...(routerState.params as ProjectType)} />
+        <Project />
       </Panel>
-      {/* <Panel id="editStep">
-        <EditStep
-          go={go}
-          setPopout={setPopout}
-          setModal={setModal}
-          {...(panelProps as StepType)}
-        />
-      </Panel> */}
     </View>
   );
 };

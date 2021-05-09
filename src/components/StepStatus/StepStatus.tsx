@@ -42,20 +42,21 @@ const getClassByStatus = (status: EStepStatus) => {
 };
 
 const StepStatus: FC<StepStatusType> = (props) => {
-  const buttonRef = createRef<Element>();
+  const buttonRef = createRef<HTMLElement>();
   const { setPopout } = useContext(PopoutManageConext);
 
   const showStatusMenu = (event: React.MouseEvent) => {
     event.stopPropagation();
 
     setPopout(
-      <ChangeStatusPopup onClose={() => setPopout(null)} ref={buttonRef} />
+      <ChangeStatusPopup onClose={() => setPopout(null)} toggleRef={buttonRef} />
     );
   };
 
   return (
     <Button
       className={cn("statusButton", getClassByStatus(props.status))}
+      getRootRef={buttonRef}
       onClick={showStatusMenu}
     />
   );

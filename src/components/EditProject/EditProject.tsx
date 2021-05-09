@@ -38,6 +38,7 @@ const EditProjectComponent: FC<EditProjectProps> = (
   useEffect(() => {
     if (!isFetching && !error && isLoading) {
       props.onClose();
+      setLoading(false);
     }
   }, [isFetching, error, isLoading]);
 

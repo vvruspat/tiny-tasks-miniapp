@@ -1,5 +1,7 @@
 import { ChartData } from "../types";
 import { ProjectType } from "../types/project";
+import { v4 as uuidv4 } from "uuid";
+
 
 export function getURIParams(params: { [key: string]: string | undefined }) {
   return Object.keys(params).reduce((prev, cur) => {
@@ -158,3 +160,5 @@ export function calculateProjectStat(project: ProjectType): ChartData {
 
   return { data: { notStarted, inProgress, ready }, labels: labels };
 }
+
+export const createUniqeId = () => uuidv4();

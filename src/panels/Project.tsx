@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useContext, useState } from "react";
 import {
   CardScroll,
   Cell,
@@ -18,24 +18,36 @@ import Icon56DocumentOutline from "@vkontakte/icons/dist/56/document_outline";
 import Icon28AddOutline from "@vkontakte/icons/dist/28/add_outline";
 import Icon28WriteOutline from "@vkontakte/icons/dist/28/write_outline";
 import Icon28DeleteOutline from "@vkontakte/icons/dist/28/delete_outline";
+import Icon28SlidersOutline from '@vkontakte/icons/dist/28/sliders_outline';
 import Icon16Dropdown from "@vkontakte/icons/dist/16/dropdown";
 
 import Chart from "../components/Chart/Chart";
 
 import { calculateProjectStat } from "../utils/helpers";
-import { useTaskBase } from "../hooks/stepBase";
+import { useTaskBase } from "../hooks/taskBase";
 import router from "../router";
+import { shallowEqual, useSelector } from 'react-redux';
+import { StateType } from '../redux/configureStore';
 
-type ProjectProps = ProjectType;
+type ProjectProps = {};
 
 const Project: FC<ProjectProps> = (props) => {
+  const routerState = router.getState();
+  const project = useSelector(
+    (state: StateType) => state.projects.projects.find(_project => _project._id === routerState.params._id)!,
+    shallowEqual
+  );
   const [isContextOpened, setContextState] = useState(false);
   const { editProject, removeProject } = useProjectBase();
-  const { createTask } = useTaskBase();
+  const { createTask, editTask, removeTask } = useTaskBase(router.getState().params._id);
 
   const onEditProjectClick = () => {
     setContextState(false);
-    editProject(props);
+    editProject(project);
+  };
+  const onRemoveProjectClick = () => {
+    setContextState(false);
+    removeProject(project);
   };
 
   const onCreateTaskClick = () => {
@@ -43,9 +55,12 @@ const Project: FC<ProjectProps> = (props) => {
     createTask();
   };
 
-  const onRemoveProjectClick = () => {
-    setContextState(false);
-    removeProject(props);
+  const onEditTaskClick = (taskId: string) => {
+    editTask(taskId);
+  };
+
+  const onRemoveTaskClick = (taskId: string) => {
+    removeTask(taskId);
   };
 
   return (
@@ -66,7 +81,7 @@ const Project: FC<ProjectProps> = (props) => {
           }
           onClick={() => setContextState(!isContextOpened)}
         >
-          {props.name}
+          {project.name}
         </PanelHeaderContent>
       </PanelHeader>
 
@@ -75,8 +90,8 @@ const Project: FC<ProjectProps> = (props) => {
         onClose={() => setContextState(!isContextOpened)}
       >
         <List>
-          <Cell before={<Icon28WriteOutline />} onClick={onEditProjectClick}>
-            Переименовать
+          <Cell before={<Icon28SlidersOutline />} onClick={onEditProjectClick}>
+            Настройки проекта
           </Cell>
           <Cell before={<Icon28AddOutline />} onClick={onCreateTaskClick}>
             Добавить задачу
@@ -87,22 +102,22 @@ const Project: FC<ProjectProps> = (props) => {
         </List>
       </PanelHeaderContext>
 
-      {!props.tasks || props.tasks.length === 0 ? (
+      {!project.tasks || project.tasks.length === 0 ? (
         <>
           <Placeholder
             icon={<Icon56DocumentOutline />}
-            action={<Button size="l">Добавить</Button>}
+            action={<Button size="l" onClick={onCreateTaskClick}>Добавить</Button>}
           >
             В вашем проекте нет ни одной задачи.
           </Placeholder>
         </>
       ) : (
         <>
-          <Chart data={calculateProjectStat(props)} />
+          <Chart data={calculateProjectStat(project)} />
 
           <CardScroll>
-            {props.tasks &&
-              props.tasks.map((task, index) => <Task {...task} key={index} />)}
+            {project.tasks &&
+              project.tasks.map((task, index) => <Task {...task} key={index} />)}
           </CardScroll>
         </>
       )}
